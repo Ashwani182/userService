@@ -16,10 +16,11 @@ import lombok.*;
 @Table(name="users")
 public class UserInfo {
 
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Id
+
     @JsonProperty("user_id")
     @NonNull
     private String userId;

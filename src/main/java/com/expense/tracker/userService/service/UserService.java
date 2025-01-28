@@ -19,6 +19,8 @@ public class UserService
     private final UserRepository userRepository;
 
     public UserInfoDto createOrUpdateUser(UserInfoDto userInfoDto){
+        //Unary operator is use instead of function<T,t> when T==t return and argument object are same
+        //unary is also a function interface
         UnaryOperator<UserInfo> updatingUser = user -> {
             return userRepository.save(userInfoDto.transformToUserInfo());
         };
@@ -26,6 +28,9 @@ public class UserService
         Supplier<UserInfo> createUser = () -> {
             return userRepository.save(userInfoDto.transformToUserInfo());
         };
+
+        //This createUser and updatingUser this functional variables we will pass in map and orElseGet
+        //orElseGet takes supplier and  map takes a functional interface
 
         UserInfo userInfo = userRepository.findByUserId(userInfoDto.getUserId())
                 .map(updatingUser)
